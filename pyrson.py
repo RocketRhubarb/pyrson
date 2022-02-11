@@ -98,17 +98,9 @@ def is_personal_number(personnr: str) -> bool:
 
 
 if __name__ == "__main__":
+    import sys
 
-    numbers = [
-        "",
-        "19780202-2389",
-        "19780202-2389",
-        "197802022389",
-        "7802022389",
-        "802022389",
-        None,
-        "19820411-2380"
-    ]
-
-    for number in numbers:
-        print(number, is_personal_number(number))
+    if is_personal_number(sys.argv[1]):
+        print('Valid')
+    else:
+        print('Invalid')
