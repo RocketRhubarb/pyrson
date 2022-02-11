@@ -13,9 +13,15 @@ def test_sanitation_characters():
 
 
 @pytest.mark.parametrize('number', ['19780202-2389', '19820411-2380'])
-def test_known_working_numbers(number):
-    '''Test known working personal numbers'''
+def test_checksum_with_known_numbers(number):
+    '''Test checksum with known working personal numbers'''
     assert is_personal_number(number)
+
+
+@pytest.mark.parametrize('number', ['19780202-2388', '19820411-2381'])
+def test_checksum_with_known_bad_numbers(number):
+    '''Test known not working personal numbers'''
+    assert is_personal_number(number) is False
 
 
 def test_null_input():
