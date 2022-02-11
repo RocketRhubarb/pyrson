@@ -5,22 +5,31 @@ import logging
 from typing import Optional
 
 
+def not_null(personnr: Optional[str] = None):
+    '''Control that person number is not None (Null)'''
+    assert personnr is not None, f"Personal number is Null: {personnr}"
+
+
 def not_empty(personnr: str):
+    '''Control that person number is not an empty string'''
     # assert equivant to if <contition>: raise AssertionError
     assert len(personnr) > 0, f"Personal number is empty: {personnr}"
 
 
-def not_null(personnr: Optional[str] = None):
-    assert personnr is not None, f"Personal number is Null: {personnr}"
-
-
 def correct_len(personnr: str):
+    '''
+    Control that person number is of correct length,
+    i.e. 10 chars excluding centruty
+    '''
     assert len(personnr) == 10, \
         f"Persnoal number is not of correct \
         length: {personnr} of len: {len(personnr)}"
 
 
 def checksum(personnr: str):
+    '''
+    Algorithm to compute and validate the checksum of a personal number
+    '''
 
     string_list = list(personnr)
     integer_list = list(map(int, string_list))
@@ -45,10 +54,12 @@ def checksum(personnr: str):
 
 
 def remove_non_numerics(personnr: str) -> str:
+    '''Input sanitation'''
     return "".join(filter(str.isdigit, personnr))
 
 
 def crop_to_right_size(personnr: str) -> str:
+    '''Crop person number to exclude century'''
     return personnr[2:] if len(personnr) == 12 else personnr
 
 
