@@ -10,10 +10,20 @@ def not_null(personnr: Optional[str] = None):
     assert personnr is not None, f"Personal number is Null: {personnr}"
 
 
+def remove_non_numerics(personnr: str) -> str:
+    '''Input sanitation'''
+    return "".join(filter(str.isdigit, personnr))
+
+
 def not_empty(personnr: str):
     '''Control that person number is not an empty string'''
     # assert equivant to if <contition>: raise AssertionError
     assert len(personnr) > 0, f"Personal number is empty: {personnr}"
+
+
+def crop_to_right_size(personnr: str) -> str:
+    '''Crop person number to exclude century'''
+    return personnr[2:] if len(personnr) == 12 else personnr
 
 
 def correct_len(personnr: str):
@@ -51,16 +61,6 @@ def checksum(personnr: str):
     accumulator = accumulator % 10
 
     assert accumulator == last_digit, "Checksum does not match"
-
-
-def remove_non_numerics(personnr: str) -> str:
-    '''Input sanitation'''
-    return "".join(filter(str.isdigit, personnr))
-
-
-def crop_to_right_size(personnr: str) -> str:
-    '''Crop person number to exclude century'''
-    return personnr[2:] if len(personnr) == 12 else personnr
 
 
 def is_personal_number(personnr: str) -> bool:
