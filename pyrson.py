@@ -39,7 +39,7 @@ def checksum(personnr: str):
     accumulator: int = 0
     tmp: int = 0
 
-    for i in range(0, len(first_digits)):
+    for i, _ in enumerate(first_digits):
         mult = 2 - i % 2
         # multiply with 2 or 1 depending on position
         tmp = int(first_digits[i]) * mult
