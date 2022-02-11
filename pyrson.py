@@ -61,7 +61,7 @@ def is_personal_number(personnr: str) -> bool:
     try:
         not_null(personnr)
     except AssertionError as err:
-        logger.exception(f"%s unsanitized_input %s", err, personnr)
+        logger.exception("%s unsanitized_input %s", err, personnr)
         return False
 
     # input sanitation
@@ -74,7 +74,7 @@ def is_personal_number(personnr: str) -> bool:
         correct_len(sanitized_number)
         checksum(sanitized_number)
     except AssertionError as err:
-        logger.exception(f"{err} unsanitized_input {personnr}")
+        logger.exception("%s unsanitized_input %s", err, personnr)
         return False
     else:
         return True
