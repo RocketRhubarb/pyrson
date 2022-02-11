@@ -57,6 +57,12 @@ def is_personal_number(personnr: str) -> bool:
     Personal number validator.
     '''
 
+    logging.basicConfig(
+        filename='pyrson.log',
+        format="%(asctime)s - %(name)s - %(levelname)s - %(message)s",
+    )
+    logger = logging.getLogger(__name__)
+
     # run tests
     try:
         not_null(personnr)
@@ -81,13 +87,6 @@ def is_personal_number(personnr: str) -> bool:
 
 
 if __name__ == "__main__":
-    logging.basicConfig(
-        filename='pyrson.log',
-        format="%(asctime)s - %(name)s - %(levelname)s - %(message)s",
-        level=logging.INFO
-    )
-    logger = logging.getLogger(__name__)
-    # logger.info("info level")
 
     numbers = [
         "",
