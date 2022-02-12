@@ -3,7 +3,8 @@ Tests for pyrson personal number validator
 '''
 import pytest
 
-from pyrson import *
+from pyrson import is_personal_number, remove_non_numerics, checksum
+from pyrson import not_null, not_empty, correct_len, crop_to_right_size
 
 
 @pytest.mark.parametrize('number', ['19780202-2389', '19820411-2380'])
@@ -14,8 +15,8 @@ def test_is_personal_number(number):
 
 def test_sanitation_characters():
     '''Test input with incorrect characters, expected to return False'''
-    assert remove_non_numerics('helloworld') is ''
-    assert remove_non_numerics('Robert\'); DROP TABLE Students;--') is ''
+    assert remove_non_numerics('helloworld') == ''
+    assert remove_non_numerics('Robert\'); DROP TABLE Students;--') == ''
 
 
 @pytest.mark.parametrize('number', ['19780202-2388', '19820411-2381'])
