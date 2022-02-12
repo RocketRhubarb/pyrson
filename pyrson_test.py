@@ -47,6 +47,11 @@ def test_correct_length(number):
         correct_len(number)
 
 
+def test_crop():
+    'Test cropping'
+    assert crop_to_right_size('YYYYMMDDXXXX') == 'YYMMDDXXXX'
+
+
 def test_known_bugs():
     '''
     Known bugs: this one will work after input sanitation
