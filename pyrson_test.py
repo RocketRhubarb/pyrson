@@ -21,6 +21,7 @@ def test_sanitation_characters():
 
 @pytest.mark.parametrize('number', ['19780202-2388', '19820411-2381'])
 def test_failing_checksum(number):
+    '''Test_examples of failing checksums'''
     with pytest.raises(Exception):
         checksum(number)
 
@@ -49,7 +50,7 @@ def test_correct_length(number):
 
 
 def test_crop():
-    'Test cropping'
+    '''Test cropping'''
     assert crop_to_right_size('YYYYMMDDXXXX') == 'YYMMDDXXXX'
 
 
