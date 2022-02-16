@@ -41,6 +41,14 @@ def test_empty_number():
         personnr.not_empty(None)
 
 
+@pytest.mark.parametrize('number', ['147802022387', '218204112381'])
+def test_failing_checksum(number):
+    '''Test examples of failing checksums'''
+    personnr = PersonNr('197802022389')
+    with pytest.raises(Exception):
+        personnr.invalid_date_range(number)
+
+
 @pytest.mark.parametrize(
     'number',
     ['19780202389', '19780202238', '2424923', '14141414141',

@@ -3,6 +3,7 @@ A validator for personal numbers.
 '''
 import logging
 from typing import Optional
+from datetime import datetime, date
 
 
 class InvalidPersonalNumber(Exception):
@@ -32,7 +33,10 @@ class PersonNr(object):
 
         try:
             self.not_null(personnr)
+            self.not_empty(personnr)
             self.not_only_numerics(personnr)
+            if len(personnr) == 12:
+                self.invalid_date_range(personnr)
         except AssertionError as err:
             logger.exception("%s unsanitized_input %s", err, personnr)
             return False
@@ -40,7 +44,6 @@ class PersonNr(object):
         sanitized_number = self.crop_to_right_size(personnr)
 
         try:
-            self.not_empty(sanitized_number)
             self.correct_len(sanitized_number)
             self.checksum(sanitized_number)
         except AssertionError as err:
@@ -56,6 +59,13 @@ class PersonNr(object):
     def not_only_numerics(self, personnr: str):
         '''Control that person number only contains numerics'''
         assert str.isdigit(personnr), f"Personal number is Null: {personnr}"
+
+    def invalid_date_range(self, personnr: str):
+        birthdate = datetime.strptime(personnr[:8], '%Y%m%d').date()
+        currdate = date.today()
+        oldest_date = datetime.strptime('19000101', '%Y%m%d').date()
+        assert (birthdate < currdate) and (
+            birthdate > oldest_date), f"Personal number is outside available ranges: {personnr}"
 
     def not_empty(self, personnr: str):
         '''Control that person number is not an empty string'''
