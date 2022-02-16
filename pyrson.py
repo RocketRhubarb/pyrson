@@ -32,12 +32,12 @@ class PersonNr(object):
 
         try:
             self.not_null(personnr)
+            self.not_only_numerics(personnr)
         except AssertionError as err:
             logger.exception("%s unsanitized_input %s", err, personnr)
             return False
 
-        sanitized_number = self.remove_non_numerics(personnr)
-        sanitized_number = self.crop_to_right_size(sanitized_number)
+        sanitized_number = self.crop_to_right_size(personnr)
 
         try:
             self.not_empty(sanitized_number)
@@ -53,10 +53,9 @@ class PersonNr(object):
         '''Control that person number is not None (Null)'''
         assert personnr is not None, f"Personal number is Null: {personnr}"
 
-    @staticmethod
-    def remove_non_numerics(personnr: str) -> str:
-        '''Input sanitation'''
-        return "".join(filter(str.isdigit, personnr))
+    def not_only_numerics(self, personnr: str):
+        '''Control that person number only contains numerics'''
+        assert str.isdigit(personnr), f"Personal number is Null: {personnr}"
 
     def not_empty(self, personnr: str):
         '''Control that person number is not an empty string'''
