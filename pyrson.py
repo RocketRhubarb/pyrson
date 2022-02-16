@@ -120,4 +120,7 @@ class PersonNr(ValidatedIdentifier):
 if __name__ == "__main__":
     import sys
 
-    print(isinstance(PersonNr(sys.argv[1]), PersonNr))
+    try:
+        PersonNr(sys.argv[1]), PersonNr
+    except InvalidPersonalNumber:
+        pass
