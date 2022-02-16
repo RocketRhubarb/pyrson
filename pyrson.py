@@ -5,12 +5,14 @@ import logging
 from typing import Optional
 from datetime import datetime, date
 
+from validated_itentifyer import ValidatedIdentifier
+
 
 class InvalidPersonalNumber(Exception):
     pass
 
 
-class PersonNr(object):
+class PersonNr(ValidatedIdentifier):
     def __init__(self, personnr: str):
 
         if self.is_personal_number(personnr):
@@ -21,6 +23,9 @@ class PersonNr(object):
             raise InvalidPersonalNumber
 
     def is_personal_number(self, personnr: str) -> bool:
+        return self.validate(personnr)
+
+    def validate(self, personnr: str) -> bool:
         '''
         Personal number validator.
         '''
@@ -34,7 +39,7 @@ class PersonNr(object):
         try:
             self.not_null(personnr)
             self.not_empty(personnr)
-            self.not_only_numerics(personnr)
+            self.only_allowed_symbols(personnr)
             if len(personnr) == 12:
                 self.invalid_date_range(personnr)
         except AssertionError as err:
@@ -56,7 +61,7 @@ class PersonNr(object):
         '''Control that person number is not None (Null)'''
         assert personnr is not None, f"Personal number is Null: {personnr}"
 
-    def not_only_numerics(self, personnr: str):
+    def only_allowed_symbols(self, personnr: str):
         '''Control that person number only contains numerics'''
         assert str.isdigit(personnr), f"Personal number is Null: {personnr}"
 
