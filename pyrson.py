@@ -13,6 +13,10 @@ class InvalidPersonalNumber(Exception):
 
 
 class PersonNr(ValidatedIdentifier):
+    '''
+    Returns a PersoalNumber object for valid personal numbers.
+    '''
+
     def __init__(self, personnr: str):
 
         if self.is_personal_number(personnr):
@@ -23,6 +27,7 @@ class PersonNr(ValidatedIdentifier):
             raise InvalidPersonalNumber
 
     def is_personal_number(self, personnr: str) -> bool:
+        '''Function that calls the general validate function'''
         return self.validate(personnr)
 
     def validate(self, personnr: str) -> bool:
@@ -66,6 +71,7 @@ class PersonNr(ValidatedIdentifier):
         assert str.isdigit(personnr), f"Personal number is Null: {personnr}"
 
     def invalid_date_range(self, personnr: str):
+        '''Control that numbers are not from the future or too far past'''
         birthdate = datetime.strptime(personnr[:8], '%Y%m%d').date()
         currdate = date.today()
         oldest_date = datetime.strptime('19000101', '%Y%m%d').date()
